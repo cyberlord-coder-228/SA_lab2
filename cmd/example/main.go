@@ -1,14 +1,24 @@
+// team variant 4 (a.k.a. chubaka228)
+
 package main
 
 import (
+	lab2 "https://github.com/cyberlord-coder-228/SA_lab2" // needs to be changed to github link
+	"bufio"
 	"flag"
-	"fmt"
-	lab2 "github.com/roman-mazur/architecture-lab-2"
+	"io"
+	"log"
+	"os"
+	"strings"
 )
 
 var (
-	inputExpression = flag.String("e", "", "Expression to compute")
-	// TODO: Add other flags support for input and output configuration.
+	inputExpression    = flag.String("e", "", "Expression to compute")
+	expressionFilePath = flag.String("f", "", "File with input")
+	outputFilePath     = flag.String("o", "", "Output file")
+
+	myIn  io.Reader
+	myOut io.Writer
 )
 
 func main() {
@@ -16,12 +26,37 @@ func main() {
 
 	// TODO: Change this to accept input from the command line arguments as described in the task and
 	//       output the results using the ComputeHandler instance.
-	//       handler := &lab2.ComputeHandler{
-	//           Input: {construct io.Reader according the command line parameters},
-	//           Output: {construct io.Writer according the command line parameters},
-	//       }
-	//       err := handler.Compute()
+	if *inputExpression != "" {
+		myIn = strings.NewReader(*inputExpression)
+	} else if *expressionFilePath != "" {
+		var openingError error
+		myIn, openingError = os.Open(*expressionFilePath)
+		if openingError != nil {
+			log.Fatal(openingError)
+			return
+		}
+	} else {
+		// no input
+		// error
+		return
+	}
 
-	res, _ := lab2.PrefixToPostfix("+ 2 2")
-	fmt.Println(res)
+	if *outputFilePath != "" {
+		myOut, openingError := os.Create(*outputFilePath)
+		if openingError != nil {
+			log.Fatal(openingError)
+			return
+		}
+
+		defer myOut.Close()
+	} else {
+		myOut = bufio.NewWriter(os.Stdout)
+	}
+
+	handler := &lab2.ComputeHandler{
+		InReader:  myIn,
+		OutWriter: myOut,
+	}
+
+	err := handler.Compute()
 }
