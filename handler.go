@@ -4,9 +4,10 @@ package lab2
 
 import (
 	"errors"
-	"fmt"
 	"log"
-	"os"
+	"io"
+	"fmt"
+	// "os"
 	"strconv"
 )
 
@@ -16,22 +17,27 @@ var noInputError = errors.New("There is no input :/")
 // ComputeHandler should be constructed with input io.Reader and output io.Writer.
 // Its Compute() method should read the expression from input and write the computed result to the output.
 type ComputeHandler struct {
-	InReader  string
-	OutWriter string
+	InReader  io.Reader
+	OutWriter io.Writer
 }
 
 func (h ComputeHandler) Compute() error {
-	input, _ := InReader.Read()
+	buf := make([]byte, 1024)
 
-	result, calculationError := CalculatePolishNotation(input)
+	n, _ := h.InReader.Read(buf)
+	strInput := string(buf[:n])
+
+	fmt.Println(strInput)
+
+	result, calculationError := CalculatePolishNotation(strInput)
 	if calculationError != nil {
 		log.Fatal(calculationError)
 		return calculationError
 	}
 
-	// strResult := strconv.FormatFloat(result, 'f', -1, 64)
+	strResult := strconv.FormatFloat(result, 'f', -1, 64)
 
-	_, writingError := OutWriter.Write([]byte(result))
+	_, writingError := h.OutWriter.Write([]byte(strResult + "\n"))
 	if writingError != nil {
 		log.Fatal(writingError)
 		return writingError

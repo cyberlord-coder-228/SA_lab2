@@ -1,5 +1,5 @@
 // TODO: Rename to my own module.
-module https://github.com/cyberlord-coder-228/SA_lab2
+module github.com/cyberlord-coder-228/SA_lab2
 
 go 1.17
 
