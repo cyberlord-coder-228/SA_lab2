@@ -3,19 +3,19 @@
 package main
 
 import (
-	lab2 "github.com/cyberlord-coder-228/SA_lab2" // needs to be changed to github link
 	"flag"
+	"fmt"
+	lab2 "github.com/cyberlord-coder-228/SA_lab2"
 	"io"
 	"log"
 	"os"
 	"strings"
-	"fmt"
 )
 
 var (
-	expression string
+	expression         string
 	expressionFilePath string
-	outputFilePath string
+	outputFilePath     string
 
 	myIn  io.Reader
 	myOut io.Writer
@@ -42,7 +42,6 @@ func main() {
 		if openingError != nil {
 			panic(openingError)
 		}
-		// defer myIn.Close()
 	} else {
 		// no input
 		// error
@@ -55,8 +54,6 @@ func main() {
 		if creationError != nil {
 			panic(creationError)
 		}
-
-		// defer myOut.Close()
 	} else {
 		myOut = os.Stdout
 	}

@@ -7,15 +7,12 @@ import (
 	"log"
 	"io"
 	"fmt"
-	// "os"
 	"strconv"
 )
 
 var emptyFileError = errors.New("Empty or non-esixtent imput file")
 var noInputError = errors.New("There is no input :/")
 
-// ComputeHandler should be constructed with input io.Reader and output io.Writer.
-// Its Compute() method should read the expression from input and write the computed result to the output.
 type ComputeHandler struct {
 	InReader  io.Reader
 	OutWriter io.Writer

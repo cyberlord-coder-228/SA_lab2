@@ -7,8 +7,6 @@ import (
 	"math"
 	"strconv"
 	"strings"
-	// "fmt"
-	// "log"
 )
 
 var acceptableOperators = []string{"+", "-", "*", "/", "^"}
