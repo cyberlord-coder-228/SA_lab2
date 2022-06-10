@@ -40,7 +40,8 @@ func main() {
 		var openingError error
 		myIn, openingError = os.Open(expressionFilePath)
 		if openingError != nil {
-			panic(openingError)
+			log.Fatal(openingError)
+			return //openingError
 		}
 	} else {
 		// no input
@@ -52,7 +53,8 @@ func main() {
 		var creationError error
 		myOut, creationError = os.Create(outputFilePath)
 		if creationError != nil {
-			panic(creationError)
+			log.Fatal(creationError)
+			return //creationError
 		}
 	} else {
 		myOut = os.Stdout

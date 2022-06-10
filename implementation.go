@@ -11,6 +11,10 @@ import (
 
 var acceptableOperators = []string{"+", "-", "*", "/", "^"}
 
+var NoInputError = errors.New("No input")
+var UnacceptableInputError = errors.New("Unacceptable character or expression")
+var NoOperatorError = errors.New("More final values than expected")
+
 func reverse(s []string) []string {
 	a := make([]string, len(s))
 	copy(a, s)
@@ -35,7 +39,7 @@ func contains(slice []string, search string) bool {
 // This function calculates polish notation expresions
 func CalculatePolishNotation(input string) (float64, error) {
 	if strings.TrimSpace(input) == "" {
-		return 0, errors.New("No input")
+		return 0, NoInputError
 	}
 
 	var numbersDeck = []float64{}
@@ -73,8 +77,12 @@ func CalculatePolishNotation(input string) (float64, error) {
 			numbersDeck = append(numbersDeck, res)
 		} else {
 			// it`s neither a number nor an acceptable operator sign. hmmmmmmmmm
-			return 0, errors.New("Unacceptable character or expression")
+			return 0, UnacceptableInputError
 		}
+	}
+
+	if len(numbersDeck) != 1 {
+		return 0, NoOperatorError
 	}
 
 	return numbersDeck[0], nil

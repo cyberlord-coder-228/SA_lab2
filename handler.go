@@ -3,15 +3,14 @@
 package lab2
 
 import (
-	"errors"
+	// "errors"
 	"log"
 	"io"
-	"fmt"
 	"strconv"
 )
 
-var emptyFileError = errors.New("Empty or non-esixtent imput file")
-var noInputError = errors.New("There is no input :/")
+// var emptyFileError = errors.New("Empty or non-esixtent imput file")
+// var noInputError = errors.New("There is no input :/")
 
 type ComputeHandler struct {
 	InReader  io.Reader
@@ -24,17 +23,15 @@ func (h ComputeHandler) Compute() error {
 	n, _ := h.InReader.Read(buf)
 	strInput := string(buf[:n])
 
-	fmt.Println(strInput)
-
 	result, calculationError := CalculatePolishNotation(strInput)
 	if calculationError != nil {
-		log.Fatal(calculationError)
+		// log.Fatal(calculationError)
 		return calculationError
 	}
 
 	strResult := strconv.FormatFloat(result, 'f', -1, 64)
 
-	_, writingError := h.OutWriter.Write([]byte(strResult + "\n"))
+	_, writingError := h.OutWriter.Write([]byte(strResult))
 	if writingError != nil {
 		log.Fatal(writingError)
 		return writingError
