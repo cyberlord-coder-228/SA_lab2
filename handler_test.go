@@ -10,7 +10,7 @@ import (
 	. "gopkg.in/check.v1"
 )
 
-func ExampleCompute() {
+func ExampleComputeHandler_Compute() {
 	// ComputeHandler.Compute() copies contents from ComputeHandler.Input, calls CalculatePolishNotation(), and writes result to ComputeHandler.Output
 
 	testHandler := ComputeHandler{
