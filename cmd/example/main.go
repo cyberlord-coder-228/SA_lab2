@@ -31,8 +31,6 @@ func initiateFlags() {
 func main() {
 	initiateFlags()
 
-	// TODO: Change this to accept input from the command line arguments as described in the task and
-	//       output the results using the ComputeHandler instance.
 	if expression != "" {
 		fmt.Println(expression)
 		myIn = strings.NewReader(expression)

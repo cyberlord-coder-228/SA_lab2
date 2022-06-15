@@ -3,14 +3,10 @@
 package lab2
 
 import (
-	// "errors"
 	"log"
 	"io"
 	"strconv"
 )
-
-// var emptyFileError = errors.New("Empty or non-esixtent imput file")
-// var noInputError = errors.New("There is no input :/")
 
 type ComputeHandler struct {
 	InReader  io.Reader
