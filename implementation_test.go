@@ -119,3 +119,19 @@ func (s *MySuite) TestcCalculatePolishNotation_k(c *C) {
 
 	c.Assert(err, ErrorMatches, expected)
 }
+
+func (s *MySuite) TestcCalculatePolishNotation_l(c *C) {
+	expression := "5 6"
+	_, err := CalculatePolishNotation(expression)
+	expected := "More final values than expected"
+
+	c.Assert(err, ErrorMatches, expected)
+}
+
+func (s *MySuite) TestcCalculatePolishNotation_m(c *C) {
+	expression := "- 5 6 7"
+	_, err := CalculatePolishNotation(expression)
+	expected := "More final values than expected"
+
+	c.Assert(err, ErrorMatches, expected)
+}

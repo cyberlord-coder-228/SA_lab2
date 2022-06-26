@@ -36,7 +36,7 @@ func (s *MySuite) TestComputeHandler(c *C) {
 	c.Assert(b.String(), Equals, "4")
 }
 
-func (s *MySuite) TestComputeHandlerError(c *C) {
+func (s *MySuite) TestComputeHandlerError1(c *C) {
 	b := bytes.NewBuffer(make([]byte, 0))
 
 	handler := ComputeHandler{
@@ -46,4 +46,52 @@ func (s *MySuite) TestComputeHandlerError(c *C) {
 	err := handler.Compute()
 
 	c.Assert(err, ErrorMatches, "More final values than expected")
+}
+
+func (s *MySuite) TestComputeHandlerError2(c *C) {
+	b := bytes.NewBuffer(make([]byte, 0))
+
+	handler := ComputeHandler{
+		InReader:  strings.NewReader(""),
+		OutWriter: b,
+	}
+	err := handler.Compute()
+
+	c.Assert(err, ErrorMatches, "No input")
+}
+
+func (s *MySuite) TestComputeHandlerError3(c *C) {
+	b := bytes.NewBuffer(make([]byte, 0))
+
+	handler := ComputeHandler{
+		InReader:  strings.NewReader("& 1 4"),
+		OutWriter: b,
+	}
+	err := handler.Compute()
+
+	c.Assert(err, ErrorMatches, "Unacceptable character or expression")
+}
+
+func (s *MySuite) TestComputeHandlerError4(c *C) {
+	b := bytes.NewBuffer(make([]byte, 0))
+
+	handler := ComputeHandler{
+		InReader:  strings.NewReader("& a 4"),
+		OutWriter: b,
+	}
+	err := handler.Compute()
+
+	c.Assert(err, ErrorMatches, "Unacceptable character or expression")
+}
+
+func (s *MySuite) TestComputeHandlerError5(c *C) {
+	b := bytes.NewBuffer(make([]byte, 0))
+
+	handler := ComputeHandler{
+		InReader:  strings.NewReader("qwerty qwe rty"),
+		OutWriter: b,
+	}
+	err := handler.Compute()
+
+	c.Assert(err, ErrorMatches, "Unacceptable character or expression")
 }
