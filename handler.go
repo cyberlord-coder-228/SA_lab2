@@ -3,7 +3,6 @@
 package lab2
 
 import (
-	"log"
 	"io"
 	"strconv"
 )
@@ -21,7 +20,6 @@ func (h ComputeHandler) Compute() error {
 
 	result, calculationError := CalculatePolishNotation(strInput)
 	if calculationError != nil {
-		// log.Fatal(calculationError)
 		return calculationError
 	}
 
@@ -29,7 +27,6 @@ func (h ComputeHandler) Compute() error {
 
 	_, writingError := h.OutWriter.Write([]byte(strResult))
 	if writingError != nil {
-		log.Fatal(writingError)
 		return writingError
 	}
 

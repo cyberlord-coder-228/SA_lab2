@@ -18,13 +18,13 @@ func ExampleCalculatePolishNotation() {
 	input := "* 3 + 19 4"
 
 	// function returns result and error
-	res, err := CalculatePolishNotation(input)
+	res, _ := CalculatePolishNotation(input)
 	
-	// Output:
 	fmt.Println(res)
-	// 69.0
-	fmt.Println(err)
-	// <nil>
+
+	// Output:
+	// 69
+
 }
 
 func (s *MySuite) TestcCalculatePolishNotation_a(c *C) {
